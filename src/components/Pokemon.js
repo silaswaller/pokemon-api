@@ -1,20 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import {useEffect, useState} from 'react';
 
-const Example = (props) => {
-    const [pokemon, setPokemon] = useState([]);
 
+const PokemonApi = () => {
+    const [apiData, setApiData] = useState([]);
     useEffect(() => {
-        fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=807')
-            .then(response => response.json())
-            .then(response => setPokemon(response.results))
-    }, []);
-
+        axios
+        .get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=807")
+        .then(response => {
+            console.log("SUCCESS")
+            console.log(response.data)
+            setApiData(response.data.results)
+        })
+        .catch(err => {
+            console.log("ERROR")
+            console.log(err.response)
+        })
+    },
+    []
+);
     return (
         <div>
-            {pokemon.length > 0 && pokemon.map((pokemon, index)=>{
-                return (<div key={index}>{pokemon.name}</div>)
-            })}
+            {apiData.map((pokemon, index) => (
+                <div key={index}>{pokemon.name}</div>
+            ))}
         </div>
-    );
+    )
 }
-export default Example;
+
+export default PokemonApi;

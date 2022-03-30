@@ -1,10 +1,10 @@
 import './App.css';
-import Example from './components/Pokemon';
+import PokemonApi from './components/Pokemon';
 
 function App() {
   return (
     <div className="App">
-      <Example />
+      <PokemonApi />
     </div>
   );
 }
